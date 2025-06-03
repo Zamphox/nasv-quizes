@@ -14,17 +14,25 @@ class QuizSeeder extends Seeder
     {
         $math = Subject::updateOrCreate(['name' => 'Math']);
 
-        $question = $math->questions()->create([
-            'question' => 'What is 3+3?'
+        $questions = $math->questions()->createMany([
+            ['question' => '3+3?', 'answer_count' => 2],
+            ['question' => '2+2?', 'answer_count' => 1],
         ]);
 
-        $question->answers()->createMany([
-            ['answer' => '1', 'is_correct' => false],
+        $questions[0]->answers()->createMany([
+            ['answer' => '6', 'is_correct' => true],
+            ['answer' => '6+0', 'is_correct' => true],
             ['answer' => '2', 'is_correct' => false],
             ['answer' => '3', 'is_correct' => false],
             ['answer' => '4', 'is_correct' => false],
             ['answer' => '5', 'is_correct' => false],
-            ['answer' => '6', 'is_correct' => true]
+        ]);
+
+        $questions[1]->answers()->createMany([
+            ['answer' => '4', 'is_correct' => true],
+            ['answer' => '5', 'is_correct' => false],
+            ['answer' => '6', 'is_correct' => false],
+            ['answer' => '7', 'is_correct' => false],
         ]);
     }
 }
