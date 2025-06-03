@@ -1,4 +1,4 @@
-/node_modules
+echo "/node_modules
 /vendor
 /public/hot
 /public/storage
@@ -27,4 +27,5 @@ auth.json
 /cypress/screenshots
 /cypress/downloads
 docker-compose/data
-.vite/deps
+public/build/*
+.vite/*
