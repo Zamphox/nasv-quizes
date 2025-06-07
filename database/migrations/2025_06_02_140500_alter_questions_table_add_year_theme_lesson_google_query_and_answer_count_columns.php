@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('theme')->nullable();
             $table->string('lesson')->nullable();
             $table->string('google_query')->nullable();
-            $table->unsignedTinyInteger('answer_count')->default(1);
         });
     }
 
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->dropColumn('theme');
             $table->dropColumn('lesson');
             $table->dropColumn('google_query');
-            $table->dropColumn('answer_count');
         });
     }
 };

@@ -15,8 +15,8 @@ class QuizSeeder extends Seeder
         $math = Subject::updateOrCreate(['name' => 'Math']);
 
         $questions = $math->questions()->createMany([
-            ['question' => '3+3?', 'answer_count' => 2],
-            ['question' => '2+2?', 'answer_count' => 1],
+            ['question' => '3+3?'],
+            ['question' => '2+2?'],
         ]);
 
         $questions[0]->answers()->createMany([

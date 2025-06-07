@@ -16,6 +16,7 @@ class Quiz extends Component
     public bool $showQuestion = true;
     public ?Collection $shuffledAnswers = null;
     public bool $isMobile = false;
+    public int $correctAnswersCount = 1;
 
     public function mount(): void
     {
@@ -42,7 +43,7 @@ class Quiz extends Component
                 return $a->id === $answer->id;
             });
         } else {
-            if ($this->selectedAnswers->count() < $this->question->answer_count) {
+            if ($this->selectedAnswers->count() < $this->correctAnswersCount) {
                 $this->selectedAnswers->push($answer);
             }
         }
@@ -57,6 +58,7 @@ class Quiz extends Component
         $this->question = Question::with('answers')->when(!blank($this->question?->id), function ($query) {
             $query->whereNot('id', $this->question->id);
         })->inRandomOrder()->first();
+        $this->correctAnswersCount = $this->question->answers->where('is_correct', true)->count();
 
         $this->shuffledAnswers = $this->question->answers->shuffle();
 
