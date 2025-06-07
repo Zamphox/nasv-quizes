@@ -26,10 +26,10 @@ class Quiz extends Component
     }
 
     /**
-     * @param $answerId
+     * @param int $answerId
      * @return void
      */
-    public function toggleAnswer($answerId): void
+    public function toggleAnswer(int $answerId): void
     {
         $answer = Answer::find($answerId);
 

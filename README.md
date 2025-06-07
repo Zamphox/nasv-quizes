@@ -9,6 +9,8 @@ Created and maintained by cadet
 <ins>Mykhailo Poliukhovych</ins>.
 <sub>(zamphox@gmail.com)</sub>
 
+<sub>2025</sub>
+
 ## Setup
 
 1. \`cp .env.example .env\`
@@ -17,7 +19,15 @@ Created and maintained by cadet
 
 ## Dev Commands
 
-| Command | Description |
-|---------|-------------|
-| ```sail up -d``` | Start containers |
-| ```sail npm run dev``` | Run React frontend |" > README.md
+| Command                                  | Description        |
+|------------------------------------------|--------------------|
+| ```./vendor/bin/sail down```             | stop containers    |
+| ```./vendor/bin/sail build --no-cache``` | build containers   |
+| ```./vendor/bin/sail up -d```            | start containers   |
+| ```sudo chown -R $USER:$USER .```        | owner fix          |
+| ```composer run dev/npm run dev```       | run react frontend |" > README.md
+
+
+
+
+

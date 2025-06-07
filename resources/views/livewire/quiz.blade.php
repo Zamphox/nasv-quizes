@@ -1,4 +1,4 @@
-<div x-data="quizUI()" x-init="init" class="relative h-screen overflow-hidden bg-gray-200">
+<div x-data="quizUI()" x-init="init" class="relative min-h-screen overflow-hidden bg-gray-200">
 
     <!-- Question Section -->
     <div
@@ -26,7 +26,7 @@
         x-transition:leave="transition-opacity duration-300"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="absolute inset-x-0 bg-gray-100 p-4 pb-18 overflow-auto"
+        class="absolute inset-x-0 bg-gray-100 p-4 pb-24 overflow-auto"
         :style="`top: ${questionHeight}px; height: ${answersHeight}px; max-height: ${maxAnswersHeight}px;`"
     >
         <div class="grid grid-cols-2 gap-3">
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Submit / Next Button -->
-    <div class="absolute bottom-2 left-0 right-0 flex justify-center pointer-events-none">
+    <div class="fixed bottom-2 left-0 right-0 flex justify-center pointer-events-none z-50">
         @if($showResults)
             <button
                 @click.prevent="next()"
