@@ -1,6 +1,7 @@
 <div x-data="quizUI()" x-init="init" class="relative min-h-screen overflow-hidden bg-gray-200">
 
     <!-- Question Section -->
+    <!-- Question Section -->
     <div
         x-ref="questionSection"
         x-show="contentVisible"
@@ -10,10 +11,13 @@
         x-transition:leave="transition-opacity duration-300"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="absolute inset-x-0 top-0 bg-white shadow-xl p-6 overflow-auto flex"
+        class="absolute inset-x-0 top-0 bg-white shadow-xl p-6 overflow-hidden flex relative"
         :style="`height: ${questionHeight}px;`"
     >
-        <h2 class="text-2xl font-bold text-center m-auto">{{ $question->question }}</h2>
+        <div class="absolute inset-0 flex justify-end overflow-hidden">
+            <span class="text-[75px] font-bold text-gray-100/60 select-none pointer-events-none mr-3 -mt-4">#{{ $question->id }}</span>
+        </div>
+        <h2 class="text-2xl font-bold text-center m-auto relative">{{ $question->question }}</h2>
     </div>
 
     <!-- Answers Section -->
