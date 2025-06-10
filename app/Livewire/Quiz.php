@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Livewire\Component;
 use App\Models\Question;
 use Jenssegers\Agent\Agent;
+use App\Models\Subject;
 
 class Quiz extends Component
 {
@@ -17,12 +18,22 @@ class Quiz extends Component
     public ?Collection $shuffledAnswers = null;
     public bool $isMobile = false;
     public int $correctAnswersCount = 1;
+    public ?array $subjectIds = null;
+
 
     public function mount(): void
     {
         $agent = new Agent;
         $this->isMobile = $agent->isMobile();
         $this->selectedAnswers = collect();
+
+        $subjectParam = request()->query('subject');
+        if ($subjectParam) {
+            $inputIds = array_map('intval', explode(',', $subjectParam));
+            $validIds = Subject::whereIn('id', $inputIds)->pluck('id')->toArray();
+            $this->subjectIds = !empty($validIds) ? $validIds : null;
+        }
+
         $this->nextQuestion();
     }
 
@@ -55,13 +66,20 @@ class Quiz extends Component
      */
     public function nextQuestion(): void
     {
-        $this->question = Question::with('answers')->when(!blank($this->question?->id), function ($query) {
-            $query->whereNot('id', $this->question->id);
-        })->inRandomOrder()->first();
+        $query = Question::with('answers');
+
+        if ($this->subjectIds) {
+            $query->whereIn('subject_id', $this->subjectIds);
+        }
+
+        if (!blank($this->question?->id)) {
+            $query->where('id', '!=', $this->question->id);
+        }
+
+        $this->question = $query->inRandomOrder()->first();
+
         $this->correctAnswersCount = $this->question->answers->where('is_correct', true)->count();
-
         $this->shuffledAnswers = $this->question->answers->shuffle();
-
         $this->selectedAnswers = collect();
         $this->showResults = false;
         $this->showQuestion = false;
